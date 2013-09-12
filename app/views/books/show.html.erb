@@ -1,0 +1,70 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @book.title %>
+</p>
+
+<p>
+  <b>Subtitle:</b>
+  <%= @book.subtitle %>
+</p>
+
+<p>
+  <b>Call number:</b>
+  <%= @book.call_number %>
+</p>
+
+<p>
+  <b>Author:</b>
+  <%= @book.author %>
+</p>
+
+<p>
+  <b>Illustrator:</b>
+  <%= @book.illustrator %>
+</p>
+
+<p>
+  <b>Series:</b>
+  <%= @book.series %>
+</p>
+
+<p>
+  <b>Book type:</b>
+  <%= @book.book_type %>
+</p>
+
+<p>
+  <b>More information:</b>
+  <%= @book.more_information %>
+</p>
+<hr>
+<p><b>Copies</b></p>
+<% @book.copies.each do |copy| %>
+  <p>
+    <b>Title:</b>
+    <%= link_to copy.title, copy %>
+  </p>
+  <p>
+    <b>Place/Publisher:</b>
+    <%= copy.place %>: <%= copy.publisher %>
+  </p>
+  <p>
+    <b>Pages:</b>
+    <%= copy.page_count %>
+  </p>
+  <p>
+    <b><%= copy.cover %></b>
+  </p>
+
+  <p>
+    <b>Price:</b>
+    <%= number_to_currency(copy.price) %>
+  </p>
+  <br/>
+<% end %>
+
+
+<%= link_to 'Edit', edit_book_path(@book) %> |
+<%= link_to 'Back', books_path %>

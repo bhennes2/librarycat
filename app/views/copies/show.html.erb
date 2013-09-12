@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @copy.title %>
+</p>
+
+<p>
+  <b>Book:</b>
+  <%= @copy.book_id %>
+</p>
+
+<p>
+  <b>Publisher:</b>
+  <%= @copy.publisher %>
+</p>
+
+<p>
+  <b>Place:</b>
+  <%= @copy.place %>
+</p>
+
+<p>
+  <b>Page count:</b>
+  <%= @copy.page_count %>
+</p>
+
+<p>
+  <b>Cover:</b>
+  <%= @copy.cover %>
+</p>
+
+<p>
+  <b>Price:</b>
+  <%= @copy.price %>
+</p>
+
+<p>
+  <b>More information:</b>
+  <%= @copy.more_information %>
+</p>
+
+
+<%= link_to 'Edit', edit_copy_path(@copy) %> |
+<%= link_to 'Back', copies_path %>

@@ -1,0 +1,46 @@
+<%= form_for(@copy, html: { class: 'form-horizontal' }) do |f| %>
+  <% if @copy.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@copy.errors.count, "error") %> prohibited this copy from being saved:</h2>
+
+      <ul>
+      <% @copy.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <% [:title, :publisher, :place, :page_count, :price].each do |attr| %>
+    <div class="control-group">
+      <%= f.label attr, class: 'control-label' %>
+      <div class="controls">
+        <%= f.text_field attr %>
+      </div>
+    </div>
+  <% end %>
+  
+  <div class="control-group">
+    <%= f.label :book_id, class: 'control-label' %>
+    <div class="controls">
+      <%= f.collection_select :book_id, @books, :id, :title %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :cover, class: 'control-label' %>
+    <div class="controls">
+      <%= f.select :cover, options_for_select(@covers) %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :more_information, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :more_information, class: 'span6', rows: 4 %>
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+      <%= f.submit nil, class: 'btn' %>
+    </div>
+  </div>
+<% end %>
