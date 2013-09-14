@@ -39,6 +39,14 @@
   <b>More information:</b>
   <%= @book.more_information %>
 </p>
+<p>
+  <b>Subjects:</b>
+  <%= print_list(@book.subjects) %>
+</p>
+<p>
+  <b>Categories:</b>
+  <%= print_list(@book.categories) %>
+</p>
 <hr>
 <p><b>Copies</b></p>
 <% @book.copies.each do |copy| %>

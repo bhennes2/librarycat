@@ -43,6 +43,9 @@ class BooksController < ApplicationController
   # POST /books.json
   def create
     @book = Book.new(params[:book])
+    
+    @book.tags = Tag.find_or_create_by_names(names: params[:subjects], tag_type: Tag.subject_type)
+    @book.tags.concat(Tag.find_or_create_by_names(names: params[:categories], tag_type: Tag.category_type))
 
     respond_to do |format|
       if @book.save
@@ -59,6 +62,9 @@ class BooksController < ApplicationController
   # PUT /books/1.json
   def update
     @book = Book.find(params[:id])
+    
+    @book.tags = Tag.find_or_create_by_names(names: params[:subjects], tag_type: Tag.subject_type)
+    @book.tags.concat(Tag.find_or_create_by_names(names: params[:categories], tag_type: Tag.category_type))
 
     respond_to do |format|
       if @book.update_attributes(params[:book])
