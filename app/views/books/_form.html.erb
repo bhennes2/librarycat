@@ -23,7 +23,7 @@
     <div class="control-group">
       <%= f.label attr, class: 'control-label' %>
       <div class="controls">
-        <%= text_field_tag attr, print_list(@book.send(attr)), class: 'span6' %>
+        <%= text_field_tag attr, form_print_list(@book.send(attr)), class: 'span6' %>
         <span class="label label-warning">Separate new <%= attr %> by a comma</span>
       </div>
     </div>
@@ -125,10 +125,6 @@
             return false;
           }
         });
-      
-      
-      
-      
     });    
     
     function split( val ) {

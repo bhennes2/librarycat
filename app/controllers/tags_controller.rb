@@ -1,7 +1,7 @@
 class TagsController < ApplicationController
   
   def index
-    @tags = Tag.all
+    @tags = Tag.all_capitalized
     
     respond_to do |format|
       format.json { render json: @tags }

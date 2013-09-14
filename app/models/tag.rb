@@ -5,6 +5,9 @@ class Tag < ActiveRecord::Base
   
   #Associations
   has_many :descriptors
+  
+  #Validations
+  validates :name, :tag_type, presence: true
     
   #Class Method
   def self.subject_type
@@ -21,11 +24,15 @@ class Tag < ActiveRecord::Base
       names = params[:names].split(', ')
       puts names
       names.each do |name|
-        tag = Tag.find_by_name(name) || Tag.create(name: name, tag_type: params[:tag_type])
+        tag = Tag.find_by_name(name.downcase) || Tag.create(name: name.downcase, tag_type: params[:tag_type])
         tags.push(tag)
       end
     end
     tags
+  end
+  
+  def self.all_capitalized
+    Tag.all.each { |tag| tag.name = tag.name.capitalize }
   end
   
 end

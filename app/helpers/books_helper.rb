@@ -1,7 +1,11 @@
 module BooksHelper
   
   def print_list(list)
-    list.map { |el| el.name }.join(', ')
+    list.map { |el| el.name.capitalize }.join(', ')
+  end
+  
+  def form_print_list(list)
+    "#{print_list(list)}, "
   end
   
 end
