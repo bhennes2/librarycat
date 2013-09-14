@@ -5,7 +5,7 @@ module BooksHelper
   end
   
   def form_print_list(list)
-    "#{print_list(list)}, "
+    print_list(list).length > 0 ? "#{print_list(list)}, " : ""
   end
   
 end

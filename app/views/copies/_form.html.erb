@@ -15,7 +15,15 @@
     <div class="control-group">
       <%= f.label attr, class: 'control-label' %>
       <div class="controls">
-        <%= f.text_field attr %>
+        <% if attr == :price %>
+          <div class="input-prepend input-append">
+            <span class="add-on">$</span>
+            <%= f.text_field attr, class: 'span2' %>
+            <span class="add-on">.00</span>
+          </div>
+        <% else %>
+          <%= f.text_field attr %>
+        <% end %>
       </div>
     </div>
   <% end %>
@@ -44,3 +52,13 @@
     </div>
   </div>
 <% end %>
+
+<script>
+
+  $(function(){
+    
+    $('#copy_title').focus();
+    
+  });
+
+</script>
