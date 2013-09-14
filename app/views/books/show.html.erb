@@ -1,78 +1,86 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="span8">
+    <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Title:</b>
-  <%= @book.title %>
-</p>
+    <h2 class="book_title"><%= @book.title %></h2>
+    
+    <p>
+      <b>Subtitle:</b>
+      <%= @book.subtitle %>
+    </p>
 
-<p>
-  <b>Subtitle:</b>
-  <%= @book.subtitle %>
-</p>
+    <p>
+      <b>Author:</b>
+      <%= @book.author %>
+    </p>
 
-<p>
-  <b>Call number:</b>
-  <%= @book.call_number %>
-</p>
+    <p>
+      <b>Illustrator:</b>
+      <%= @book.illustrator %>
+    </p>
 
-<p>
-  <b>Author:</b>
-  <%= @book.author %>
-</p>
+    <p>
+      <b>Series:</b>
+      <%= @book.series %>
+    </p>
 
-<p>
-  <b>Illustrator:</b>
-  <%= @book.illustrator %>
-</p>
+    <p>
+      <b>Book type:</b>
+      <%= @book.book_type %>
+    </p>
 
-<p>
-  <b>Series:</b>
-  <%= @book.series %>
-</p>
+    <p>
+      <b>More information:</b>
+      <%= @book.more_information %>
+    </p>
+    <p>
+      <b>Subjects:</b>
+      <%= print_list(@book.subjects) %>
+    </p>
+    <p>
+      <b>Categories:</b>
+      <%= print_list(@book.categories) %>
+    </p>
+    <p>
+      <b>Copies in this Library:</b>
+      <%= @book.copies.length %>
+    </p>
+    <hr>
+    <h3>Copies</h3>
+    <% @book.copies.each do |copy| %>
+      <p>
+        <b>Title:</b>
+        <%= link_to copy.title, copy %>
+      </p>
+      <p>
+        <b>Place/Publisher:</b>
+        <%= copy.place %>: <%= copy.publisher %>
+      </p>
+      <p>
+        <b>Pages:</b>
+        <%= copy.page_count %>
+      </p>
+      <p>
+        <b><%= copy.cover %></b>
+      </p>
 
-<p>
-  <b>Book type:</b>
-  <%= @book.book_type %>
-</p>
-
-<p>
-  <b>More information:</b>
-  <%= @book.more_information %>
-</p>
-<p>
-  <b>Subjects:</b>
-  <%= print_list(@book.subjects) %>
-</p>
-<p>
-  <b>Categories:</b>
-  <%= print_list(@book.categories) %>
-</p>
-<hr>
-<p><b>Copies</b></p>
-<% @book.copies.each do |copy| %>
-  <p>
-    <b>Title:</b>
-    <%= link_to copy.title, copy %>
-  </p>
-  <p>
-    <b>Place/Publisher:</b>
-    <%= copy.place %>: <%= copy.publisher %>
-  </p>
-  <p>
-    <b>Pages:</b>
-    <%= copy.page_count %>
-  </p>
-  <p>
-    <b><%= copy.cover %></b>
-  </p>
-
-  <p>
-    <b>Price:</b>
-    <%= number_to_currency(copy.price) %>
-  </p>
-  <br/>
-<% end %>
+      <p>
+        <b>Price:</b>
+        <%= number_to_currency(copy.price) %>
+      </p>
+      <p><%= link_to 'Edit', edit_copy_path(copy) %> |
+      <%= link_to 'Delete', copy_path(copy), method: :delete, confirm: 'Are you sure you want to remove this copy?' %></p>
+      <br/>
+    <% end %>
 
 
-<%= link_to 'Edit', edit_book_path(@book) %> |
-<%= link_to 'Back', books_path %>
+    <%= link_to 'Edit', edit_book_path(@book) %> |
+    <%= link_to 'Back', books_path %>
+  </div>
+  <div class="span4">
+    <div class="call_number">
+      <p>Call Number:</p>
+      <p class="number"><%= @book.call_number %></p>
+    </div>
+  </div>
+</div>
