@@ -48,6 +48,17 @@ namespace :books do
   
 end
 
+namespace :categories do
+  
+  task :upload => :environment do 
+    CSV.foreach("public/data/categories.csv") do |row|
+      tag = Tag.create(name: row[0], tag_type: Tag.category_type)
+    end
+    puts 'Successfully uploaded categories'
+  end
+  
+end
+
 def schema
   {
     "245" => {
