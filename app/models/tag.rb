@@ -22,7 +22,6 @@ class Tag < ActiveRecord::Base
     tags = []
     if params[:names]
       names = params[:names].split(', ')
-      puts names
       names.each do |name|
         tag = Tag.find_by_name(name.downcase) || Tag.create(name: name.downcase, tag_type: params[:tag_type])
         tags.push(tag)

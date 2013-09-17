@@ -1,5 +1,7 @@
 <h1>Listing books</h1>
 
+<p><%= paginate @books %></p>
+
 <table class="table">
   <tr>
     <th>Title</th>
@@ -31,6 +33,8 @@
   </tr>
 <% end %>
 </table>
+
+<p><%= paginate @books %></p>
 
 <br />
 

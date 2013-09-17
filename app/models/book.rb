@@ -5,13 +5,16 @@ class Book < ActiveRecord::Base
   attr_accessor :tags
   
   #Associations
-  has_many :copies
-  has_many :descriptors
+  has_many :copies, dependent: :destroy
+  has_many :descriptors, dependent: :destroy
   has_many :subjects, through: :descriptors, source: :tag, conditions: { tag_type: Tag.subject_type }
   has_many :categories, through: :descriptors, source: :tag, conditions: { tag_type: Tag.category_type }
   
   #Callbacks
   after_save :assign_descriptors
+  
+  #Pagination
+  paginates_per 50
   
   #Instance Methods
   def assign_descriptors
