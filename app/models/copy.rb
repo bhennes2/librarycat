@@ -6,4 +6,9 @@ class Copy < ActiveRecord::Base
   #Associations
   belongs_to :book
   
+  #Instance Method
+  def formatted_page_count
+    page_count == 0 ? 'unpaginated' : page_count
+  end
+  
 end
