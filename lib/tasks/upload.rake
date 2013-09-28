@@ -9,7 +9,7 @@ namespace :books do
     if Rails.env.development?
       Book.destroy_all
     else
-      Book.where(created_at <= DateTime.parse('2013-09-18')).each(&:destroy)
+      Book.where('created_at <= ?', DateTime.parse('2013-09-18')).each(&:destroy)
     end
     
     ["a_l", "m_z"].each do |file_name|
