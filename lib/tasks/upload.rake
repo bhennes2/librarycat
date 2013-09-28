@@ -5,20 +5,27 @@ require 'open-uri'
 namespace :books do 
   
   task :upload => :environment do
-    Book.destroy_all
+    
+    if Rails.env.development?
+      Book.destroy_all
+    else
+      Book.where(created_at <= DateTime.parse('2013-09-18')).each(&:destroy)
+    end
     
     ["a_l", "m_z"].each do |file_name|
       file = File.open("public/data/#{file_name}.xml", "r")
       doc = Nokogiri::XML.parse(file)
       doc.xpath("//record").each do |record|
         book = Book.new
-        copy = book.copies.build
+        placeholder_copy = Copy.new
+        copies =  []
         tags = []
         record.children.each do |field|
           if field['type'] == '650'
             names = field.children.select { |subfield| subfield['type'] == 'a' }.map { |subfield| subfield.content.split('--').first }
-            tags = Tag.find_or_create_by_names(names: names.join(', '), tag_type: Tag.subject_type)
+            tags.concat(Tag.find_or_create_by_names(names: names.join('; '), tag_type: Tag.subject_type))
           else
+            copy = book.copies.build if field['type'] == '852'
             h = schema["#{field['type']}"]
             if h.present?
               field.children.each do |subfield|
@@ -27,19 +34,25 @@ namespace :books do
                   if Book.instance_methods(true).include?(attr)
                     book.send("#{attr}=", subfield.content) 
                   else
-                    copy.send("#{attr}=", subfield.content) 
+                    field['type'] == '852' ? copy.send("#{attr}=", subfield.content) : placeholder_copy.send("#{attr}=", subfield.content)
                   end
                 end
               end
             end
+            copies.push(copy) if field['type'] == '852'
           end
         end
-        
-        copy.price = copy.price.gsub!('p', '') if copy.price
+        book.title = book.title.gsub('/', '')
+        copies.each_index do |i|
+          placeholder_copy.attributes.each do |attribute, value|
+            copies[i].send("#{attribute}=", value) if value.present?
+          end
+          copies[i].price = copies[i].price.gsub('p', '') if copies[i].price
+          copies[i].title = book.title
+        end
         book.book_type = book.call_number.split(' ').first if book.call_number
-        copy.title = book.title
         book.tags = tags
-        book.save
+        book.save!
       end
       file.close      
     end
@@ -89,7 +102,8 @@ def schema
     },
     "852" => {
       "9" => :price,
-      "h" => :call_number
+      "h" => :call_number,
+      "p" => :barcode
     }
   }
 end

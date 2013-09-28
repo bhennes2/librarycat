@@ -21,8 +21,4 @@ class Book < ActiveRecord::Base
     tags.each { |tag| self.descriptors.create(tag_id: tag.id) }
   end
   
-  def subjects_list
-    subjects.map(&:name).each(&:capitalize!).join('; ')
-  end
-  
 end

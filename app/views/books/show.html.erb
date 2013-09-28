@@ -54,14 +54,18 @@
       </p>
       <p>
         <b>Place/Publisher:</b>
-        <%= copy.place %>: <%= copy.publisher %>
+        <%= copy.place %> <%= copy.publisher %>
+      </p>
+      <p>
+        <b>Year:</b>
+        <%= copy.year %>
       </p>
       <p>
         <b>Pages:</b>
         <%= copy.formatted_page_count %>
       </p>
       <p>
-        <b><%= copy.cover.capitalize %></b>
+        <b><%= copy.cover.try(:capitalize) %></b>
       </p>
 
       <p>

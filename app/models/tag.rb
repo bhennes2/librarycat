@@ -8,6 +8,7 @@ class Tag < ActiveRecord::Base
   
   #Validations
   validates :name, :tag_type, presence: true
+  validates :name, uniqueness: { scope: :tag_type }
     
   #Class Method
   def self.subject_type
@@ -21,9 +22,9 @@ class Tag < ActiveRecord::Base
   def self.find_or_create_by_names(params)
     tags = []
     if params[:names]
-      names = params[:names].split(', ')
+      names = params[:names].split('; ')
       names.each do |name|
-        tag = Tag.find_by_name(name.downcase) || Tag.create(name: name.downcase, tag_type: params[:tag_type])
+        tag = Tag.where(name: name.downcase, tag_type: params[:tag_type]).first || Tag.create(name: name.downcase, tag_type: params[:tag_type])
         tags.push(tag)
       end
     end

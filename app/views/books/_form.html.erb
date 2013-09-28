@@ -24,7 +24,7 @@
       <%= f.label attr, class: 'control-label' %>
       <div class="controls">
         <%= text_field_tag attr, form_print_list(@book.send(attr)), class: 'span6' %>
-        <span class="label label-warning">Separate new <%= attr %> by a comma</span>
+        <span class="label label-warning">Separate new <%= attr %> by a semi-colon</span>
       </div>
     </div>
   <% end %>
@@ -91,7 +91,7 @@
             terms.push( ui.item.value );
             // add placeholder to get the comma-and-space at the end
             terms.push( "" );
-            this.value = terms.join( ", " );
+            this.value = terms.join( "; " );
             return false;
           }
         });
@@ -123,14 +123,14 @@
             terms.push( ui.item.value );
             // add placeholder to get the comma-and-space at the end
             terms.push( "" );
-            this.value = terms.join( ", " );
+            this.value = terms.join( "; " );
             return false;
           }
         });
     });    
     
     function split( val ) {
-      return val.split( /,\s*/ );
+      return val.split( /;\s*/ );
     }
     function extractLast( term ) {
       return split( term ).pop();
