@@ -69,7 +69,7 @@ def schema
     "260" => {
       "a" => :place,
       "b" => :publisher,
-      "c" => :more_information
+      "c" => :year
     },
     "300" => {
       "a" => :page_count,
