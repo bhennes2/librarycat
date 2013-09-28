@@ -30,8 +30,8 @@ class Tag < ActiveRecord::Base
     tags
   end
   
-  def self.all_capitalized
-    Tag.all.each { |tag| tag.name = tag.name.capitalize }
+  def self.all_capitalized_and_alphabetized
+    Tag.order('name ASC').each { |tag| tag.name = tag.name.capitalize }
   end
   
 end
