@@ -1,14 +1,43 @@
 <div class="row">
   <div class="span12">
-    <h1>Welcome to LibraryCat!</h1>
-  </div>
-  <div class="span12">
+    <h2>What are you looking for? Enter the words you want to use to search.</h2>
+    <p>(If you want to see a list of all books, leave this part blank. Then, choose a search option and click Search.)</p>
     <div class="search_container">
-      <form class="form-search">
-        <i class="icon-search"></i>
-        <input type="text" class="input-medium search-query span8">
-        <button type="submit" class="btn">Search</button>
-      </form>
+      <%= form_tag(search_path, class: 'form-search') do %>
+        <%= text_area_tag :query, nil, class: "input-medium search-query span12", rows: '3' %>
+        <h2>How do you want to find it? Choose one of these options.</h2>
+        <ul class="search_filters">
+        <% [:title, :author].each do |attr| %>
+          <li>
+            <%= radio_button_tag :filter, attr %>
+            <%= label_tag "filter_#{attr}", "<span class='badge'>#{attr.capitalize}</span>".html_safe %>
+          </li>
+        <% end %>
+        </ul>
+        <br/>
+        <p class="center"><%= submit_tag 'Search', class: 'btn span12' %></p>
+      <% end %>
     </div>
   </div>
 </div>
+
+<script>
+
+  $(function(){
+    $('#query').focus();
+    
+    $('input[type="radio"]').on('click', function(){
+      var radios = $('input[type="radio"]');
+      $.each(radios, function(i, el){
+        var checked = $(el).prop("checked");
+        if (checked){
+          $(el).siblings('label').children('span').addClass('badge-info');
+        } else {
+          $(el).siblings('label').children('span').removeClass('badge-info');
+        }
+      });
+    });
+    
+  });
+
+</script>

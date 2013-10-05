@@ -1,5 +1,9 @@
 class Book < ActiveRecord::Base
   
+  include PgSearch
+  pg_search_scope :search_by_title, :against => :title
+  pg_search_scope :search_by_author, :against => :author
+  
   #Attributes
   attr_accessible :author, :book_type, :call_number, :illustrator, :more_information, :series, :subtitle, :title
   attr_accessor :tags
@@ -16,6 +20,11 @@ class Book < ActiveRecord::Base
   
   #Pagination
   paginates_per 50
+  
+  #Class Methods
+  def self.search(params)
+    Book.send("search_by_#{params[:filter] || :title }", *[params[:query]])
+  end
   
   #Instance Methods
   def assign_descriptors
