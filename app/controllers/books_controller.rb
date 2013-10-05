@@ -2,7 +2,7 @@ class BooksController < ApplicationController
   # GET /books
   # GET /books.json
   def index
-    @books = Book.order('title ASC').page(params[:page] || 1)
+    @books = Book.order('sortable_title ASC').page(params[:page] || 1)
 
     respond_to do |format|
       format.html # index.html.erb
