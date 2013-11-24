@@ -48,7 +48,7 @@ class CopiesController < ApplicationController
 
     respond_to do |format|
       if @copy.save
-        format.html { redirect_to @copy, notice: 'Copy was successfully created.' }
+        format.html { redirect_to @copy.book, notice: 'Copy was successfully created.' }
         format.json { render json: @copy, status: :created, location: @copy }
       else
         format.html { render action: "new" }
@@ -64,7 +64,7 @@ class CopiesController < ApplicationController
 
     respond_to do |format|
       if @copy.update_attributes(params[:copy])
-        format.html { redirect_to @copy, notice: 'Copy was successfully updated.' }
+        format.html { redirect_to @copy.book, notice: 'Copy was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
