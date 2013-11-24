@@ -28,7 +28,13 @@ class Book < ActiveRecord::Base
   
   #Instance Methods
   def assign_descriptors
-    tags.each { |tag| self.descriptors.create(tag_id: tag.id) } if tags.present?
+    existing_descriptors = self.descriptors
+    new_descriptors = []
+    tags.each do |tag| 
+      new_descriptors.push(self.descriptors.create(tag_id: tag.id))
+    end
+    descriptors_to_be_removed = existing_descriptors.keep_if { |d| new_descriptors.index(d).nil? }
+    descriptors_to_be_removed.each(&:destroy)
   end
   
   def assign_sortable_title
