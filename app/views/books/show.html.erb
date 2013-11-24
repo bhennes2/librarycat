@@ -45,8 +45,10 @@
       <b>Copies in this Library:</b>
       <%= @book.copies.length %>
     </p>
+		<p><%= link_to 'Edit this book', edit_book_path(@book) %></p>
     <hr>
     <h3>Copies</h3>
+		<p><%= link_to 'Add a new copy', new_book_copy_path(@book) %></p><br/>
     <% @book.copies.each do |copy| %>
       <p>
         <b>Title:</b>
@@ -76,10 +78,6 @@
       <%= link_to 'Delete', copy_path(copy), method: :delete, confirm: 'Are you sure you want to remove this copy?' %></p>
       <br/>
     <% end %>
-
-
-    <%= link_to 'Edit', edit_book_path(@book) %> |
-    <%= link_to 'Back', books_path %>
   </div>
   <div class="span4">
     <div class="call_number">

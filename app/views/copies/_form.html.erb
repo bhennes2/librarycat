@@ -31,7 +31,12 @@
   <div class="control-group">
     <%= f.label :book_id, class: 'control-label' %>
     <div class="controls">
-      <%= f.collection_select :book_id, @books, :id, :title %>
+			<% if @book.present? %>
+				<span class="book_title"><%= @book.title %></span>
+				<%= f.hidden_field :book_id, value: @book.id %>
+			<% else %>
+				<%= f.collection_select :book_id, @books, :id, :title %>
+			<% end %>
     </div>
   </div>
   <div class="control-group">

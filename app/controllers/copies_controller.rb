@@ -27,6 +27,7 @@ class CopiesController < ApplicationController
     @copy = Copy.new
     @books = Book.all
     @covers = copy_covers
+    @book = Book.find_by_id(params[:book_id])
 
     respond_to do |format|
       format.html # new.html.erb
@@ -39,6 +40,7 @@ class CopiesController < ApplicationController
     @copy = Copy.find(params[:id])
     @books = Book.all
     @covers = copy_covers
+    @book = Book.find_by_id(params[:book_id])
   end
 
   # POST /copies
