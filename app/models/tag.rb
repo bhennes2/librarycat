@@ -4,7 +4,8 @@ class Tag < ActiveRecord::Base
   attr_accessible :name, :tag_type
   
   #Associations
-  has_many :descriptors
+  has_many :descriptors, dependent: :destroy
+  has_many :books, through: :descriptors
   
   #Validations
   validates :name, :tag_type, presence: true

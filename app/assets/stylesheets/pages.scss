@@ -1,3 +1,15 @@
+body {
+//  font-family: 'Fauna One', serif;
+}
+
+b {
+  color:#00B3AB;
+}
+
+.content {
+  margin-top: 75px;
+}
+
 .search_container {
 	margin: 50px 0;
 }
@@ -21,8 +33,4 @@ input[type="radio"] {
 span.badge {
 	font-size: 24px;
 	line-height: 28px;
-}
-
-img.logo {
-	max-width: 20%;
 }

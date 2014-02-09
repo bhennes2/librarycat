@@ -1,0 +1,33 @@
+<%= form_for(@tag, html: { class: 'form-horizontal' }) do |f| %>
+  <% if @tag.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@tag.errors.count, "error") %> prohibited this book from being saved:</h2>
+
+      <ul>
+      <% @tag.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <% [:name].each do |attr| %>
+    <div class="control-group">
+      <%= f.label attr, class: 'control-label' %>
+      <div class="controls">
+        <%= f.text_field attr, autofocus: true %>
+      </div>
+    </div>
+  <% end %>
+  <div class="control-group">
+    <%= f.label :tag_type, class: 'control-label' %>
+    <div class="controls">
+      <%= f.select :tag_type, options_for_select(@tag_types, [@tag.tag_type.capitalize]), prompt: true %>
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+      <%= f.submit %>
+    </div>
+  </div>
+<% end %>

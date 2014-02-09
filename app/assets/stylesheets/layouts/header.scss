@@ -1,0 +1,27 @@
+div.navbar {
+  position:fixed;
+  top:0;
+  width:100%;
+  a.brand {
+    color: black;
+  }
+  .nav li {
+    border-right: 1px solid black;
+    margin-top:10px;
+    a {
+      color: black;
+      font-size: 16px;
+    }
+  }
+  .navbar-inner {
+    background-color:rgb(191,236,234);
+    background-image:none;
+    border-radius:0px;
+  }
+  .container {
+    width:940px;
+  }
+  .logo {
+  	img { padding: 10px; }
+  }
+}

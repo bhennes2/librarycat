@@ -1,0 +1,39 @@
+<h2>Tag: <%= @tag.name %> (<%= @tag.tag_type.capitalize%>)</h2>
+
+<p>List of <%= pluralize(@tag.books.length, 'book') %> with this <b><%= @tag.tag_type %></b></p>
+
+<table class="table table-striped">
+  <tr>
+    <th>Title</th>
+    <th>Subtitle</th>
+    <th>Call number</th>
+    <th>Author</th>
+    <th>Illustrator</th>
+    <th>Series</th>
+    <th>Book type</th>
+    <th>Subjects</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @tag.books.each do |book| %>
+  <tr>
+    <td><%= book.title %></td>
+    <td><%= book.subtitle %></td>
+    <td><%= book.call_number %></td>
+    <td><%= book.author %></td>
+    <td><%= book.illustrator %></td>
+    <td><%= book.series %></td>
+    <td><%= book.book_type %></td>
+    <td><%= print_list(book.subjects) %></td>
+    <td><%= link_to 'Show', book %></td>
+    <td><%= link_to 'Edit', edit_book_path(book) %></td>
+    <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+
+<%= link_to 'Edit', edit_tag_path(@tag) %> |
+<%= link_to 'Back', tags_path %>
