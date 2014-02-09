@@ -1,21 +1,21 @@
 <div class="row">
   <div class="span12">
-    <h2>Enter the words you want to use to search.</h2>
-    <p>(If you want to see a list of all books, leave this part blank. Then, choose a search option and click Search.)</p>
+    <h3 class="search_header center">Let me help you find what you're looking for</h3>
     <div class="search_container">
+      
       <%= form_tag(search_path, class: 'form-search') do %>
-        <%= text_area_tag :query, nil, class: "input-medium search-query span12", rows: '3' %>
-        <h2>Choose one of these options.</h2>
-        <ul class="search_filters">
-        <% [:title, :author].each do |attr| %>
-          <li>
-            <%= radio_button_tag :filter, attr %>
+        <i class="icon-search"></i>
+        <%= text_field_tag :query, nil, class: "input-medium search-query span10" %>
+        <%= submit_tag 'Search', class: 'btn btn-large btn-success' %>
+        <h4 class="center">
+          and for me to search by:
+          <% [:title, :author].each do |attr| %>
+            <span><%= radio_button_tag :filter, attr %>
             <%= label_tag "filter_#{attr}", "<span class='badge'>#{attr.capitalize}</span>".html_safe %>
-          </li>
-        <% end %>
-        </ul>
-        <br/>
-        <p class="center"><%= submit_tag 'Search', class: 'btn span12' %></p>
+          </span>
+          <% end %>
+        </h4>
+        <p class="center"></p>
       <% end %>
     </div>
   </div>

@@ -10,8 +10,16 @@ b {
   margin-top: 75px;
 }
 
+.search_header {
+  margin-top: 175px;
+}
+
 .search_container {
-	margin: 50px 0;
+	margin: 30px 0 50px 0;
+  .search-query {
+    height: 34px;
+    margin: 0 18px 0 5px;
+  }
 }
 
 ul.search_filters {
@@ -31,6 +39,6 @@ input[type="radio"] {
 }
 
 span.badge {
-	font-size: 24px;
+	font-size: 20px;
 	line-height: 28px;
 }
