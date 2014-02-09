@@ -22,7 +22,7 @@
   <div class="control-group">
     <%= f.label :tag_type, class: 'control-label' %>
     <div class="controls">
-      <%= f.select :tag_type, options_for_select(@tag_types, [@tag.tag_type.capitalize]), prompt: true %>
+      <%= f.select :tag_type, options_for_select(@tag_types, [@tag.tag_type.try(:capitalize)]), prompt: true %>
     </div>
   </div>
   <div class="control-group">
