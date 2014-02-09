@@ -33,24 +33,17 @@ class TagsController < ApplicationController
   end
 
   def create
-    @book = Book.new(params[:book])
-    
-    @book.tags = Tag.find_or_create_by_names(names: params[:subjects], tag_type: Tag.subject_type)
-    @book.tags.concat(Tag.find_or_create_by_names(names: params[:categories], tag_type: Tag.category_type))
+    @tag = Tag.new(params[:tag])
 
     respond_to do |format|
-      if @book.save
-        format.html { redirect_to @book, notice: 'Book was successfully created.' }
-        format.json { render json: @book, status: :created, location: @book }
+      if @tag.save
+        format.html { redirect_to @tag, notice: 'Tag was successfully created.' }
       else
         format.html { render action: "new" }
-        format.json { render json: @book.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # PUT /books/1
-  # PUT /books/1.json
   def update
     @tag = Tag.find(params[:id])
     
@@ -63,14 +56,12 @@ class TagsController < ApplicationController
     end
   end
 
-  # DELETE /books/1
-  # DELETE /books/1.json
   def destroy
     @tag = Tag.find(params[:id])
     @tag.destroy
 
     respond_to do |format|
-      format.html { redirect_to books_url }
+      format.html { redirect_to tags_url }
       format.json { head :no_content }
     end
   end
