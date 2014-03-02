@@ -1,14 +1,13 @@
 <div class="row">
   <div class="span12">
-    <h3 class="search_header center">Let me help you find what you're looking for</h3>
+    <h3 class="search_header center">Tell me what you're looking for</h3>
     <div class="search_container">
-      
       <%= form_tag(search_path, class: 'form-search') do %>
         <i class="icon-search"></i>
         <%= text_field_tag :query, nil, class: "input-medium search-query span10" %>
         <%= submit_tag 'Search', class: 'btn btn-large btn-success' %>
         <h4 class="center">
-          and for me to search by:
+          and where I should search:
           <% [:title, :author].each do |attr| %>
             <span><%= radio_button_tag :filter, attr %>
             <%= label_tag "filter_#{attr}", "<span class='badge'>#{attr.capitalize}</span>".html_safe %>
