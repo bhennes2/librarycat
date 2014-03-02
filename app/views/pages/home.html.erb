@@ -8,7 +8,7 @@
         <%= submit_tag 'Search', class: 'btn btn-large btn-success' %>
         <h4 class="center">
           and where I should search:
-          <% [:title, :author].each do |attr| %>
+          <% [:title, :author, :subject, :category].each do |attr| %>
             <span><%= radio_button_tag :filter, attr %>
             <%= label_tag "filter_#{attr}", "<span class='badge'>#{attr.capitalize}</span>".html_safe %>
           </span>

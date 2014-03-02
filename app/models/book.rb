@@ -3,6 +3,8 @@ class Book < ActiveRecord::Base
   include PgSearch
   pg_search_scope :search_by_title, :against => :title
   pg_search_scope :search_by_author, :against => :author
+  pg_search_scope :search_by_subject, :associated_against => { :subjects => :name }
+  pg_search_scope :search_by_category, :associated_against => { :subjects => :name }
   
   #Attributes
   attr_accessible :author, :book_type, :call_number, :illustrator, :more_information, :series, :subtitle, :title
