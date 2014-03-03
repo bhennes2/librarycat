@@ -26,6 +26,7 @@ class BooksController < ApplicationController
   def new
     @book = Book.new
     @book_types = book_types
+    @tags = []
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,17 +36,17 @@ class BooksController < ApplicationController
 
   # GET /books/1/edit
   def edit
-    @book = Book.find(params[:id])
+    @book = Book.find(params[:id], include: [:descriptors])
     @book_types = book_types
+    @tags = @book.descriptors.map(&:tag_id)
   end
 
   # POST /books
   # POST /books.json
   def create
     @book = Book.new(params[:book])
-    
-    @book.tags = Tag.find_or_create_by_names(names: params[:subjects], tag_type: Tag.subject_type)
-    @book.tags.concat(Tag.find_or_create_by_names(names: params[:categories], tag_type: Tag.category_type))
+    @book.subject_ids = params[:subjects]
+    @book.category_ids = params[:categories]
 
     respond_to do |format|
       if @book.save
@@ -62,10 +63,9 @@ class BooksController < ApplicationController
   # PUT /books/1.json
   def update
     @book = Book.find(params[:id])
+    @book.subject_ids = params[:subjects]
+    @book.category_ids = params[:categories]
     
-    @book.tags = Tag.find_or_create_by_names(names: params[:subjects], tag_type: Tag.subject_type)
-    @book.tags.concat(Tag.find_or_create_by_names(names: params[:categories], tag_type: Tag.category_type))
-
     respond_to do |format|
       if @book.update_attributes(params[:book])
         format.html { redirect_to @book, notice: 'Book was successfully updated.' }

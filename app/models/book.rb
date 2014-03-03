@@ -7,7 +7,8 @@ class Book < ActiveRecord::Base
   pg_search_scope :search_by_category, :associated_against => { :subjects => :name }
   
   #Attributes
-  attr_accessible :author, :book_type, :call_number, :illustrator, :more_information, :series, :subtitle, :title
+  attr_accessible :author, :book_type, :call_number, :illustrator, :more_information, :series, :subtitle, :title,
+                  :subject_ids, :category_ids
   attr_accessor :tags
   
   #Associations
@@ -29,11 +30,12 @@ class Book < ActiveRecord::Base
   end
   
   #Instance Methods
-  def assign_descriptors
+  def assign_descriptors  
     existing_descriptors = self.descriptors
     new_descriptors = []
-    tags.each do |tag| 
-      new_descriptors.push(self.descriptors.create(tag_id: tag.id))
+    [:subject_ids, :category_ids].each do |attrs|
+      arr = (self.send(attrs) || []).map { |id| self.descriptors.where(tag_id: id).first || self.descriptors.create(tag_id: id) }
+      new_descriptors.concat(arr)
     end
     descriptors_to_be_removed = existing_descriptors.keep_if { |d| new_descriptors.index(d).nil? }
     descriptors_to_be_removed.each(&:destroy)

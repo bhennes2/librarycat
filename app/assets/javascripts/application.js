@@ -16,4 +16,5 @@
 //= require jquery.ui.autocomplete
 //= require dataTables/jquery.dataTables
 //= require dataTables/jquery.dataTables.bootstrap
+//= require chosen-jquery
 //= require_tree .

@@ -23,8 +23,7 @@
     <div class="control-group">
       <%= f.label attr, class: 'control-label' %>
       <div class="controls">
-        <%= text_field_tag attr, form_print_list(@book.send(attr)), class: 'span6' %>
-        <span class="label label-warning">Separate new <%= attr %> by a semi-colon</span>
+        <%= select_tag attr, options_from_collection_for_select([], :id, :name), multiple: true, include_blank: true, class: 'chosen-select', "data-placeholder" => "Add some #{attr}..." %>
       </div>
     </div>
   <% end %>
@@ -52,90 +51,29 @@
 
   $(function(){
     
+    $('#book_title').focus();
+    
+    var existing_tags = <%= @tags %>;
+    
     $.getJSON('<%= tags_url %>', null, function(data){
-      var subjects = []
-          categories = [];
+      var subject_options = ""
+          category_options = "";
       $.each(data, function(i, tag){
         if (tag.tag_type == '<%= Tag.subject_type %>'){
-          subjects.push(tag.name);
+          var selected = existing_tags.indexOf(tag.id) != -1 ? "selected" : "";
+          subject_options += "<option " + selected + " value=" + tag.id +">" + tag.name + "</option>";
         } else {
-          categories.push(tag.name);
+          var selected = existing_tags.indexOf(tag.id) != -1 ? "selected" : "";
+          category_options += "<option " + selected + " value=" + tag.id +">" + tag.name + "</option>";
         }
       });
+        
+      $('#subjects').append(subject_options).chosen({width: "460px"});
+      $("#categories").append(category_options).chosen({width: "460px"});
       
-      $('#book_title').focus();
-      
-      $('#subjects')
-        // don't navigate away from the field on tab when selecting an item
-        .bind( "keydown", function( event ) {
-          if ( event.keyCode === $.ui.keyCode.TAB &&
-              $( this ).data( "ui-autocomplete" ).menu.active ) {
-            event.preventDefault();
-          }
-        })
-        .autocomplete({
-          minLength: 0,
-          source: function( request, response ) {
-            // delegate back to autocomplete, but extract the last term
-            response( $.ui.autocomplete.filter(
-              subjects, extractLast( request.term ) ) );
-          },
-          focus: function() {
-            // prevent value inserted on focus
-            return false;
-          },
-          select: function( event, ui ) {
-            var terms = split( this.value );
-            // remove the current input
-            terms.pop();
-            // add the selected item
-            terms.push( ui.item.value );
-            // add placeholder to get the comma-and-space at the end
-            terms.push( "" );
-            this.value = terms.join( "; " );
-            return false;
-          }
-        });
-
-      $('#categories')
-        // don't navigate away from the field on tab when selecting an item
-        .bind( "keydown", function( event ) {
-          if ( event.keyCode === $.ui.keyCode.TAB &&
-              $( this ).data( "ui-autocomplete" ).menu.active ) {
-            event.preventDefault();
-          }
-        })
-        .autocomplete({
-          minLength: 0,
-          source: function( request, response ) {
-            // delegate back to autocomplete, but extract the last term
-            response( $.ui.autocomplete.filter(
-              categories, extractLast( request.term ) ) );
-          },
-          focus: function() {
-            // prevent value inserted on focus
-            return false;
-          },
-          select: function( event, ui ) {
-            var terms = split( this.value );
-            // remove the current input
-            terms.pop();
-            // add the selected item
-            terms.push( ui.item.value );
-            // add placeholder to get the comma-and-space at the end
-            terms.push( "" );
-            this.value = terms.join( "; " );
-            return false;
-          }
-        });
+      $('#subjects').on('chosen:no_results', function(e){
+      });
     });    
-    
-    function split( val ) {
-      return val.split( /;\s*/ );
-    }
-    function extractLast( term ) {
-      return split( term ).pop();
-    }
     
   });
   
