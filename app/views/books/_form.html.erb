@@ -59,7 +59,7 @@
       var subject_options = ""
           category_options = "";
       $.each(data, function(i, tag){
-        if (tag.tag_type == '<%= Tag.subject_type %>'){
+        if (tag.tag_type.toLowerCase() == '<%= Tag.subject_type %>'){
           var selected = existing_tags.indexOf(tag.id) != -1 ? "selected" : "";
           subject_options += "<option " + selected + " value=" + tag.id +">" + tag.name + "</option>";
         } else {
