@@ -14,3 +14,5 @@
 /log/*.log
 /tmp
 public/data/.DS_Store
+
+*.dump
