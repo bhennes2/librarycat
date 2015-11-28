@@ -10,16 +10,20 @@
       </ul>
     </div>
   <% end %>
-  
-  <% [:title, :publisher, :place, :page_count, :price].each do |attr| %>
+
+  <% [:title, :publisher, :place, :year, :page_count, :price].each do |attr| %>
     <div class="control-group">
       <%= f.label attr, class: 'control-label' %>
       <div class="controls">
-        <% if attr == :price %>
+        <% if attr === :price %>
           <div class="input-prepend input-append">
             <span class="add-on">$</span>
             <%= f.text_field attr, class: 'span2' %>
-            <!-- <span class="add-on">.00</span> -->
+          </div>
+        <% elsif attr === :year %>
+          <div class="input-prepend input-append">
+            <span class="add-on">&copy;</span>
+            <%= f.text_field attr, class: 'span2' %>
           </div>
         <% else %>
           <%= f.text_field attr %>
@@ -27,7 +31,7 @@
       </div>
     </div>
   <% end %>
-  
+
   <div class="control-group">
     <%= f.label :book_id, class: 'control-label' %>
     <div class="controls">
@@ -62,9 +66,9 @@
 <script>
 
   $(function(){
-    
+
     $('#copy_title').focus();
-    
+
   });
 
 </script>
