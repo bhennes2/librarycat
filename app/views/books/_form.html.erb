@@ -29,6 +29,7 @@
       </div>
     <% end %>
   <% end %>
+  <hr>
   <% [:subjects, :categories].each do |attr| %>
     <div class="control-group">
       <%= f.label attr, class: 'control-label' %>
@@ -36,6 +37,16 @@
         <%= select_tag attr, options_from_collection_for_select([], :id, :name), multiple: true, include_blank: true, class: 'chosen-select', "data-placeholder" => "Add some #{attr}..." %>
       </div>
     </div>
+    <div class="control-group">
+      <%= f.label "New #{attr}", class: 'control-label' %>
+      <div class="controls">
+        <%= f.text_field "#{attr}_names", placeholder: "Add new #{attr}", class: 'span6' %>
+        <p>
+          <small>(separate by semicolons)</small>
+        </p>
+      </div>
+    </div>
+    <hr>
   <% end %>
   <div class="control-group">
     <%= f.label :book_type, class: 'control-label' %>
@@ -78,11 +89,15 @@
         }
       });
 
-      $('#subjects').append(subject_options).chosen({width: "460px"});
-      $("#categories").append(category_options).chosen({width: "460px"});
+      var options = {
+        width: "460px",
+        no_results_text: "No results match. Add new one below.",
+        search_contains: true
+      };
 
-      $('#subjects').on('chosen:no_results', function(e){
-      });
+      $('#subjects').append(subject_options).chosen(options);
+      $("#categories").append(category_options).chosen(options);
+
     });
 
   });

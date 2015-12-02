@@ -6,6 +6,9 @@ class Book < ActiveRecord::Base
   pg_search_scope :search_by_subject, :associated_against => { :subjects => :name }
   pg_search_scope :search_by_category, :associated_against => { :subjects => :name }
 
+  #Validations
+  validates :title, presence: true
+
   #Associations
   has_many :copies, dependent: :destroy
   has_many :descriptors, dependent: :destroy
@@ -14,8 +17,8 @@ class Book < ActiveRecord::Base
 
   #Attributes
   attr_accessible :author, :book_type, :call_number, :illustrator, :more_information, :series, :subtitle, :title,
-                  :subject_ids, :category_ids, :copies_attributes
-  attr_accessor :tags
+                  :subject_ids, :category_ids, :copies_attributes, :subjects_names, :categories_names
+  attr_accessor :tags, :subjects_names, :categories_names
   accepts_nested_attributes_for :copies
 
   #Callbacks
@@ -38,6 +41,15 @@ class Book < ActiveRecord::Base
       arr = (self.send(attrs) || []).map { |id| self.descriptors.where(tag_id: id).first || self.descriptors.create(tag_id: id) }
       new_descriptors.concat(arr)
     end
+    [:subjects_names, :categories_names].each do |attrs|
+      arr = []
+      (self.send(attrs) || "").split('; ').each do |name|
+        tag_type = attrs == :subject_names ? Tag.subject_type : Tag.category_type
+        tag = Tag.find_by_name(name) || Tag.create(name: name, tag_type: tag_type)
+        arr.push(self.descriptors.create(tag_id: tag.id))
+      end
+      new_descriptors.concat(arr)
+    end
     descriptors_to_be_removed = existing_descriptors.keep_if { |d| new_descriptors.index(d).nil? }
     descriptors_to_be_removed.each(&:destroy)
   end
@@ -50,7 +62,5 @@ class Book < ActiveRecord::Base
       self.sortable_title = string_array.select(&:present?).join(' ')
     end
   end
-
-
 
 end
