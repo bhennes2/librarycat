@@ -10,7 +10,7 @@
       </ul>
     </div>
   <% end %>
-  
+
   <% [:title, :subtitle, :call_number, :author, :illustrator, :series].each do |attr| %>
     <div class="control-group">
       <%= f.label attr, class: 'control-label' %>
@@ -18,6 +18,16 @@
         <%= f.text_field attr %>
       </div>
     </div>
+  <% end %>
+  <% if @book.new_record? %>
+    <%= f.fields_for :copies do |ff| %>
+      <div class="control-group">
+        <%= ff.label :year, class: 'control-label' %>
+        <div class="controls">
+          <%= ff.text_field :year %>
+        </div>
+      </div>
+    <% end %>
   <% end %>
   <% [:subjects, :categories].each do |attr| %>
     <div class="control-group">
@@ -50,11 +60,11 @@
 <script>
 
   $(function(){
-    
+
     $('#book_title').focus();
-    
+
     var existing_tags = <%= @tags %>;
-    
+
     $.getJSON('<%= tags_url %>', null, function(data){
       var subject_options = ""
           category_options = "";
@@ -67,14 +77,14 @@
           category_options += "<option " + selected + " value=" + tag.id +">" + tag.name + "</option>";
         }
       });
-        
+
       $('#subjects').append(subject_options).chosen({width: "460px"});
       $("#categories").append(category_options).chosen({width: "460px"});
-      
+
       $('#subjects').on('chosen:no_results', function(e){
       });
-    });    
-    
+    });
+
   });
-  
+
 </script>
