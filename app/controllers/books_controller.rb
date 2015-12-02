@@ -25,6 +25,7 @@ class BooksController < ApplicationController
   # GET /books/new.json
   def new
     @book = Book.new
+    @book.copies.build
     @book_types = book_types
     @tags = []
 
@@ -47,6 +48,7 @@ class BooksController < ApplicationController
     @book = Book.new(params[:book])
     @book.subject_ids = params[:subjects]
     @book.category_ids = params[:categories]
+    @book.copies.first.title = @book.title
 
     respond_to do |format|
       if @book.save
@@ -65,7 +67,7 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
     @book.subject_ids = params[:subjects]
     @book.category_ids = params[:categories]
-    
+
     respond_to do |format|
       if @book.update_attributes(params[:book])
         format.html { redirect_to @book, notice: 'Book was successfully updated.' }
@@ -88,9 +90,9 @@ class BooksController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
+
   private
-  
+
     def book_types
       ["Fiction", "Nonfiction", "Easy", "Story Collection", "Reference"]
     end

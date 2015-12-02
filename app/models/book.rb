@@ -1,36 +1,37 @@
 class Book < ActiveRecord::Base
-  
+
   include PgSearch
   pg_search_scope :search_by_title, :against => :title
   pg_search_scope :search_by_author, :against => :author
   pg_search_scope :search_by_subject, :associated_against => { :subjects => :name }
   pg_search_scope :search_by_category, :associated_against => { :subjects => :name }
-  
-  #Attributes
-  attr_accessible :author, :book_type, :call_number, :illustrator, :more_information, :series, :subtitle, :title,
-                  :subject_ids, :category_ids
-  attr_accessor :tags
-  
+
   #Associations
   has_many :copies, dependent: :destroy
   has_many :descriptors, dependent: :destroy
   has_many :subjects, through: :descriptors, source: :tag, conditions: { tag_type: Tag.subject_type }
   has_many :categories, through: :descriptors, source: :tag, conditions: { tag_type: Tag.category_type }
-  
+
+  #Attributes
+  attr_accessible :author, :book_type, :call_number, :illustrator, :more_information, :series, :subtitle, :title,
+                  :subject_ids, :category_ids, :copies_attributes
+  attr_accessor :tags
+  accepts_nested_attributes_for :copies
+
   #Callbacks
   after_save :assign_descriptors
   before_save :assign_sortable_title
-  
+
   #Pagination
   paginates_per 50
-  
+
   #Class Methods
   def self.search(params)
     Book.send("search_by_#{params[:filter] || :title }", *[params[:query]])
   end
-  
+
   #Instance Methods
-  def assign_descriptors  
+  def assign_descriptors
     existing_descriptors = self.descriptors
     new_descriptors = []
     [:subject_ids, :category_ids].each do |attrs|
@@ -40,7 +41,7 @@ class Book < ActiveRecord::Base
     descriptors_to_be_removed = existing_descriptors.keep_if { |d| new_descriptors.index(d).nil? }
     descriptors_to_be_removed.each(&:destroy)
   end
-  
+
   def assign_sortable_title
     if title
       string_array = title.split(' ')
@@ -49,7 +50,7 @@ class Book < ActiveRecord::Base
       self.sortable_title = string_array.select(&:present?).join(' ')
     end
   end
-  
 
-  
+
+
 end
