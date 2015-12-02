@@ -55,6 +55,8 @@ class BooksController < ApplicationController
         format.html { redirect_to @book, notice: 'Book was successfully created.' }
         format.json { render json: @book, status: :created, location: @book }
       else
+        @book_types = book_types
+        @tags = []
         format.html { render action: "new" }
         format.json { render json: @book.errors, status: :unprocessable_entity }
       end
