@@ -1,4 +1,4 @@
-<h1>Listing tags</h1>
+<h1>Your <%= @type.pluralize %></h1>
 
 <p><%= link_to 'New Tag', new_tag_path %></p>
 
@@ -15,7 +15,7 @@
   <tbody>
   <% @tags.each do |tag| %>
     <tr>
-      <td><%= tag.name %></td>
+      <td><%= tag.name.capitalize %></td>
       <td><%= tag.tag_type.capitalize %></td>
       <td><%= link_to 'Show', tag_path(tag) %></td>
       <td><%= link_to 'Edit', edit_tag_path(tag) %></td>
