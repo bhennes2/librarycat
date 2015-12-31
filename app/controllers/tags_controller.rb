@@ -1,8 +1,9 @@
 class TagsController < ApplicationController
-  
+
   def index
-    @tags = Tag.all_capitalized_and_alphabetized
-    
+    @type = params[:type] || "subject"
+    @tags = Tag.where(tag_type: @type)
+
     respond_to do |format|
       format.html
       format.json { render json: @tags }
@@ -46,7 +47,7 @@ class TagsController < ApplicationController
 
   def update
     @tag = Tag.find(params[:id])
-    
+
     respond_to do |format|
       if @tag.update_attributes(params[:tag])
         format.html { redirect_to @tag, notice: 'Tag was successfully updated.' }
@@ -65,11 +66,11 @@ class TagsController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
+
   private
-  
+
     def tag_types
       ["Subject", "Category"]
     end
-  
+
 end
