@@ -40,6 +40,7 @@
   <%= @copy.more_information %>
 </p>
 
-
-<%= link_to 'Edit', edit_copy_path(@copy) %> |
+<% if user_signed_in? %>
+  <%= link_to 'Edit', edit_copy_path(@copy) %> |
+<% end %>
 <%= link_to 'Back', copies_path %>

@@ -1,6 +1,8 @@
 <h1>Listing tags</h1>
 
-<p><%= link_to 'New Tag', new_tag_path %></p>
+<% if user_signed_in? %>
+  <p><%= link_to 'New Tag', new_tag_path %></p>
+<% end %>
 
 <table class="table table-striped">
   <thead>
@@ -17,9 +19,17 @@
     <tr>
       <td><%= tag.name %></td>
       <td><%= tag.tag_type.capitalize %></td>
-      <td><%= link_to 'Show', tag_path(tag) %></td>
-      <td><%= link_to 'Edit', edit_tag_path(tag) %></td>
-      <td><%= link_to 'Destroy', tag, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <td><%= link_to 'View', tag_path(tag) %></td>
+      <td>
+        <% if user_signed_in? %>
+          <%= link_to 'Edit', edit_tag_path(tag) %>
+        <% end %>
+      </td>
+      <td>
+        <% if user_signed_in? %>
+          <%= link_to 'Delete', tag, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <% end %>
+      </td>
     </tr>
   <% end %>
   </tbody>

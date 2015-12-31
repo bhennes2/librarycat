@@ -1,8 +1,10 @@
 class TagsController < ApplicationController
-  
+
+  before_filter :authenticate_user!, except: [:index, :show]
+
   def index
     @tags = Tag.all_capitalized_and_alphabetized
-    
+
     respond_to do |format|
       format.html
       format.json { render json: @tags }
@@ -46,7 +48,7 @@ class TagsController < ApplicationController
 
   def update
     @tag = Tag.find(params[:id])
-    
+
     respond_to do |format|
       if @tag.update_attributes(params[:tag])
         format.html { redirect_to @tag, notice: 'Tag was successfully updated.' }
@@ -65,11 +67,11 @@ class TagsController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
+
   private
-  
+
     def tag_types
       ["Subject", "Category"]
     end
-  
+
 end

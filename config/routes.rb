@@ -1,5 +1,7 @@
 Librarycat::Application.routes.draw do
 
+  devise_for :users
+
   resources :copies
   resources :books do
     resources :copies
