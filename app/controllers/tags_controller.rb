@@ -3,7 +3,8 @@ class TagsController < ApplicationController
   before_filter :authenticate_user!, except: [:index, :show]
 
   def index
-    @tags = Tag.all_capitalized_and_alphabetized
+    @type = params[:type] || "subject"
+    @tags = Tag.where(tag_type: @type)
 
     respond_to do |format|
       format.html
