@@ -1,6 +1,9 @@
 <div class="navbar">
     <div class="navbar-inner">
       <div class="container">
+        <% if user_signed_in? %>
+          <p class="text-right"><%= current_user.email %> | <%= link_to 'Logout',  destroy_user_session_path, method: :delete %></p>
+        <% end %>
         <div class="row">
           <div class="span3">
             <%= link_to root_url, class: 'logo' do %>
@@ -11,7 +14,9 @@
             <ul class="nav pull-right">
               <li><%= link_to 'Home', root_url %></li>
               <li><%= link_to 'Books', books_url %></li>
-              <li><%= link_to 'New Book', new_book_url %></li>
+              <% if user_signed_in? %>
+                <li><%= link_to 'New Book', new_book_url %></li>
+              <% end %>
               <li><%= link_to 'Subjects', tags_url(type: 'subject') %></li>
               <li><%= link_to 'Categories', tags_url(type: 'category') %></li>
             </ul>

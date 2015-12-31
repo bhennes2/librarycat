@@ -1,6 +1,7 @@
 class BooksController < ApplicationController
-  # GET /books
-  # GET /books.json
+
+  before_filter :authenticate_user!, except: [:index, :show]
+
   def index
     @books = Book.order('sortable_title ASC').page(params[:page] || 1)
 

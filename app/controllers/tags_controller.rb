@@ -1,5 +1,7 @@
 class TagsController < ApplicationController
 
+  before_filter :authenticate_user!, except: [:index, :show]
+
   def index
     @type = params[:type] || "subject"
     @tags = Tag.where(tag_type: @type)

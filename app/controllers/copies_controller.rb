@@ -1,6 +1,7 @@
 class CopiesController < ApplicationController
-  # GET /copies
-  # GET /copies.json
+
+  before_filter :authenticate_user!, except: [:show]
+
   def index
     @copies = Copy.all
 
@@ -86,9 +87,9 @@ class CopiesController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
+
   private
-  
+
     def copy_covers
       ["Hardcover", "Paperback"]
     end

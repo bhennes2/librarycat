@@ -27,9 +27,17 @@
     <td><%= book.series %></td>
     <td><%= book.book_type %></td>
     <td><%= print_list(book.subjects) %></td>
-    <td><%= link_to 'Show', book %></td>
-    <td><%= link_to 'Edit', edit_book_path(book) %></td>
-    <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'View', book %></td>
+    <td>
+      <% if user_signed_in? %>
+        <%= link_to 'Edit', edit_book_path(book) %>
+      <% end %>
+    </td>
+    <td>
+      <% if user_signed_in? %>
+        <%= link_to 'Delete', book, method: :delete, data: { confirm: 'Are you sure?' } %>
+      <% end %>
+    </td>
   </tr>
 <% end %>
 </table>
@@ -37,5 +45,6 @@
 <p><%= paginate @books %></p>
 
 <br />
-
-<%= link_to 'New Book', new_book_path %>
+<% if user_signed_in? %>
+  <%= link_to 'New Book', new_book_path %>
+<% end %>
