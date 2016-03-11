@@ -51,7 +51,7 @@
   <div class="control-group">
     <%= f.label :book_type, class: 'control-label' %>
     <div class="controls">
-      <%= f.select :book_type, options_for_select(@book_types) %>
+      <%= f.select :book_type, options_for_select(@book_types, f.object.book_type) %>
     </div>
   </div>
   <div class="control-group">
@@ -74,32 +74,34 @@
 
     $('#book_title').focus();
 
-    var existing_tags = <%= @tags %>;
+    var existing_tags = <%= @tags %>,
+        categories = [],
+        subjects = [],
+        subject_options = "",
+        category_options = "",
+        options = {
+          width: "460px",
+          no_results_text: "No results match. Add new one below.",
+          search_contains: true
+        };
 
-    $.getJSON('<%= tags_url %>', null, function(data){
-      var subject_options = ""
-          category_options = "";
-      $.each(data, function(i, tag){
-        if (tag.tag_type.toLowerCase() == '<%= Tag.subject_type %>'){
-          var selected = existing_tags.indexOf(tag.id) != -1 ? "selected" : "";
-          subject_options += "<option " + selected + " value=" + tag.id +">" + tag.name + "</option>";
-        } else {
-          var selected = existing_tags.indexOf(tag.id) != -1 ? "selected" : "";
-          category_options += "<option " + selected + " value=" + tag.id +">" + tag.name + "</option>";
-        }
+    $.getJSON('<%= tags_url %>', { type: 'category' }, function(data){
+      categories = data;
+      $.each(categories, function(i, tag){
+        var selected = existing_tags.indexOf(tag.id) != -1 ? "selected" : "";
+        category_options += "<option " + selected + " value=" + tag.id +">" + tag.name + "</option>";
       });
-
-      var options = {
-        width: "460px",
-        no_results_text: "No results match. Add new one below.",
-        search_contains: true
-      };
-
-      $('#subjects').append(subject_options).chosen(options);
       $("#categories").append(category_options).chosen(options);
-
     });
 
+    $.getJSON('<%= tags_url %>', { type: 'subject' }, function(data){
+      subjects = data;
+      $.each(subjects, function(i, tag){
+        var selected = existing_tags.indexOf(tag.id) != -1 ? "selected" : "";
+        subject_options += "<option " + selected + " value=" + tag.id +">" + tag.name + "</option>";
+      });
+      $('#subjects').append(subject_options).chosen(options);
+    });
   });
 
 </script>

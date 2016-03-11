@@ -44,7 +44,7 @@ class Book < ActiveRecord::Base
     [:subjects_names, :categories_names].each do |attrs|
       arr = []
       (self.send(attrs) || "").split('; ').each do |name|
-        tag_type = attrs == :subject_names ? Tag.subject_type : Tag.category_type
+        tag_type = attrs == :subjects_names ? Tag.subject_type : Tag.category_type
         tag = Tag.find_by_name(name) || Tag.create(name: name, tag_type: tag_type)
         arr.push(self.descriptors.create(tag_id: tag.id))
       end
