@@ -8,7 +8,8 @@ Librarycat::Application.routes.draw do
   end
   resources :tags
   root :to => 'pages#home'
-  
+
   post '/search' => 'pages#search', as: :search
-  
+  get '/search' => 'pages#search'
+
 end
