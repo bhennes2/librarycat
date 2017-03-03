@@ -56,10 +56,7 @@ class Book < ActiveRecord::Base
 
   def assign_sortable_title
     if title
-      string_array = title.split(' ')
-      first_element = string_array.first.sub(/(the|a\ |an\ )/i, '')
-      string_array[0] = first_element
-      self.sortable_title = string_array.select(&:present?).join(' ')
+      self.sortable_title = title.sub(/(the|a\ |an\ )/i, '')
     end
   end
 
