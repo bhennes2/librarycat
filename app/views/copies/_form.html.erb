@@ -46,7 +46,7 @@
   <div class="control-group">
     <%= f.label :cover, class: 'control-label' %>
     <div class="controls">
-      <%= f.select :cover, options_for_select(@covers) %>
+      <%= f.select :cover, options_for_select(@covers, @copy.cover) %>
     </div>
   </div>
   <div class="control-group">
