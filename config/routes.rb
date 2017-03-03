@@ -11,5 +11,7 @@ Librarycat::Application.routes.draw do
 
   post '/search' => 'pages#search', as: :search
   get '/search' => 'pages#search'
+  post '/letter_search' => 'pages#letter_search', as: :letter_search
+  get '/letter_search' => 'pages#letter_search'
 
 end

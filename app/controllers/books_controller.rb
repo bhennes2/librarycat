@@ -4,6 +4,7 @@ class BooksController < ApplicationController
 
   def index
     @books = Book.order('sortable_title ASC').page(params[:page] || 1)
+    @letters = ('A'..'Z').to_a
 
     respond_to do |format|
       format.html # index.html.erb

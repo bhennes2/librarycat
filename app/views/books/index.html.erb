@@ -1,6 +1,10 @@
 <h1>Listing books</h1>
 
-<p><%= paginate @books %></p>
+<ul class="letter-menu">
+  <% @letters.each do |letter| %>
+    <li><%= link_to letter, letter_search_path(query: letter), method: :post %></li>
+  <% end %>
+</ul>
 
 <table class="table table-striped">
   <tr>
