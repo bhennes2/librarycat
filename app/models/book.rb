@@ -1,7 +1,7 @@
 class Book < ActiveRecord::Base
 
   include PgSearch
-  pg_search_scope :search_by_title, :against => :title
+  pg_search_scope :search_by_title, :against => :title, :using => {  :tsearch => { :prefix => true } }
   pg_search_scope :search_by_author, :against => :author
   pg_search_scope :search_by_subject, :associated_against => { :subjects => :name }
   pg_search_scope :search_by_category, :associated_against => { :subjects => :name }
@@ -57,7 +57,7 @@ class Book < ActiveRecord::Base
   def assign_sortable_title
     if title
       string_array = title.split(' ')
-      first_element = string_array.first.sub(/(the|a|an)/i, '')
+      first_element = string_array.first.sub(/(the|a\ |an\ )/i, '')
       string_array[0] = first_element
       self.sortable_title = string_array.select(&:present?).join(' ')
     end

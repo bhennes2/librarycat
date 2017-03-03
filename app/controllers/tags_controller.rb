@@ -4,7 +4,7 @@ class TagsController < ApplicationController
 
   def index
     @type = params[:type] || "subject"
-    @tags = Tag.where(tag_type: @type)
+    @tags = Tag.where("lower(tag_type) = ?", @type.downcase)
 
     respond_to do |format|
       format.html
@@ -64,7 +64,7 @@ class TagsController < ApplicationController
     @tag.destroy
 
     respond_to do |format|
-      format.html { redirect_to tags_url, notice: 'Tag was sucessfully deleted.' }
+      format.html { redirect_to :back, notice: 'Tag was sucessfully deleted.' }
       format.json { head :no_content }
     end
   end

@@ -47,3 +47,10 @@ select[multiple="multiple"] {
   height: 30px;
   width: 460px;
 }
+
+.letter-menu {
+  li {
+    display: inline-block;
+    padding: 0 10px;
+  }
+}

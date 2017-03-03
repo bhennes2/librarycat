@@ -14,6 +14,7 @@ gem 'nokogiri'
 gem 'kaminari'
 gem 'pg_search'
 gem 'devise'
+gem 'eventmachine', '1.0.9'
 
 # Gems used only for assets and not required
 # in production environments by default.
