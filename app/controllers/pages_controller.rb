@@ -14,7 +14,7 @@ class PagesController < ApplicationController
 
   def letter_search
     @books = Book.where('lower(substring(sortable_title from 1 for 1)) = ?', params[:query].downcase)
-      .page(params[:page] || 1)
+      .order('sortable_title ASC').page(params[:page] || 1)
 
     render :search
   end
