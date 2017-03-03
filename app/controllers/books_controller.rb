@@ -97,6 +97,6 @@ class BooksController < ApplicationController
   private
 
     def book_types
-      ["Fiction", "Nonfiction", "Easy", "Story Collection", "Reference"]
+      ["Fiction", "Nonfiction", "Easy", "Story Collection", "Reference", "Graphic Novel"]
     end
 end
