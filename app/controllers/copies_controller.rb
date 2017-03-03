@@ -29,6 +29,7 @@ class CopiesController < ApplicationController
     @books = Book.all
     @covers = copy_covers
     @book = Book.find_by_id(params[:book_id])
+    @copy.title = @book.title
 
     respond_to do |format|
       format.html # new.html.erb
