@@ -1,7 +1,7 @@
 class Book < ActiveRecord::Base
 
   include PgSearch
-  pg_search_scope :search_by_title, :against => :title
+  pg_search_scope :search_by_title, :against => :title, :using => {  :tsearch => { :prefix => true } }
   pg_search_scope :search_by_author, :against => :author
   pg_search_scope :search_by_subject, :associated_against => { :subjects => :name }
   pg_search_scope :search_by_category, :associated_against => { :subjects => :name }
