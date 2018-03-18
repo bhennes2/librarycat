@@ -8,9 +8,10 @@
 @import "chosen";
 
 @media print {
-  .navbar { display: none; }
-  .content.container { margin: auto; }
+  .nav { display: none; }
+  // .content.container { margin: auto; }
   .table-striped th:nth-last-child(-n+3), .table-striped td:nth-last-child(-n+3) {
     display: none;
   }
+  footer { display: none; }
 }
