@@ -9,6 +9,12 @@
 
 @media print {
   .nav { display: none !important; }
+  .navbar-inner { border: 0px !important; }
+  .print-logo { 
+    display: inline !important;
+    padding: 10px 0;
+  }
+  .logo { display: none; }
   .table-striped th:nth-last-child(-n+3), .table-striped td:nth-last-child(-n+3) {
     display: none;
   }
