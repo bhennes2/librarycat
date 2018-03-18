@@ -8,8 +8,7 @@
 @import "chosen";
 
 @media print {
-  .nav { display: none; }
-  // .content.container { margin: auto; }
+  .nav { display: none !important; }
   .table-striped th:nth-last-child(-n+3), .table-striped td:nth-last-child(-n+3) {
     display: none;
   }
