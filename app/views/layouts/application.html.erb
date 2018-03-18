@@ -4,6 +4,10 @@
   <title><%= @title || "LibraryCat | Let's find books!" %></title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
+  <link rel="apple-touch-startup-image" href="<%= asset_path("home-icon.png") %>">
+  <link rel="apple-touch-icon" href="<%= asset_path("home-icon.png") %>">
+  <meta name="apple-mobile-web-app-title" content="LibraryCat">
+  <link rel="icon" href="<%= asset_path("favicon.png") %>" />
   <!-- <link href='http://fonts.googleapis.com/css?family=Fauna+One' rel='stylesheet' type='text/css'> -->
   <%= csrf_meta_tags %>
 </head>
