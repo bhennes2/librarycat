@@ -13,6 +13,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
-public/data/.DS_Store
+*.DS_Store
 
 *.dump
+
