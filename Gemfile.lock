@@ -175,6 +175,7 @@ DEPENDENCIES
   chosen-rails
   coffee-rails (~> 3.2.1)
   devise!
+  eventmachine (= 1.0.9)
   jquery-datatables-rails!
   jquery-rails
   jquery-ui-rails

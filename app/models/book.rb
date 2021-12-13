@@ -12,8 +12,8 @@ class Book < ActiveRecord::Base
   #Associations
   has_many :copies, dependent: :destroy
   has_many :descriptors, dependent: :destroy
-  has_many :subjects, through: :descriptors, source: :tag, conditions: { tag_type: Tag.subject_type }
-  has_many :categories, through: :descriptors, source: :tag, conditions: { tag_type: Tag.category_type }
+  has_many :subject_tags, through: :descriptors, source: :tag
+  has_many :category_tags, through: :descriptors, source: :tag
 
   #Attributes
   attr_accessible :author, :book_type, :call_number, :illustrator, :more_information, :series, :subtitle, :title,
@@ -34,6 +34,14 @@ class Book < ActiveRecord::Base
   end
 
   #Instance Methods
+  def subjects
+    subject_tags.where(tag_type: Tag.subject_type)
+  end
+
+  def categories
+    category_tags.where(tag_type: Tag.category_type)
+  end
+
   def assign_descriptors
     existing_descriptors = self.descriptors
     new_descriptors = []
