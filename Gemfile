@@ -1,20 +1,21 @@
 source 'https://rubygems.org'
-ruby '2.1.5'
+ruby '2.6.5'
 
 gem 'rails', '3.2.13'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'pg'
+gem 'pg', '~> 0.18'
 gem 'newrelic_rpm'
-gem 'thin'
+gem 'thin', '~> 1.8.1'
 gem 'quiet_assets'
 gem 'nokogiri'
 gem 'kaminari'
 gem 'pg_search'
 gem 'devise'
 gem 'eventmachine', '1.0.9'
+gem 'json', '~> 1.8.5'
 
 # Gems used only for assets and not required
 # in production environments by default.
