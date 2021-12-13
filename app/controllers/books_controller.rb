@@ -3,7 +3,7 @@ class BooksController < ApplicationController
   before_filter :authenticate_user!, except: [:index, :show]
 
   def index
-    @books = Book.order('sortable_title ASC').page(params[:page] || 1)
+    @books = Book.order('sortable_title ASC').page(params[:page]&.to_i || 1)
     @letters = ('A'..'Z').to_a
 
     respond_to do |format|
