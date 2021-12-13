@@ -16,6 +16,7 @@ gem 'pg_search'
 gem 'devise', git: 'https://github.com/plataformatec/devise' , branch: '3-stable'
 gem 'eventmachine', '1.0.9'
 gem 'json', '~> 1.8.5'
+gem 'test-unit'
 
 # Gems used only for assets and not required
 # in production environments by default.
