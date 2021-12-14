@@ -3,8 +3,8 @@ class Book < ActiveRecord::Base
   include PgSearch
   pg_search_scope :search_by_title, :against => :title, :using => {  :tsearch => { :prefix => true } }
   pg_search_scope :search_by_author, :against => :author
-  pg_search_scope :search_by_subject, :associated_against => { :subjects => :name }
-  pg_search_scope :search_by_category, :associated_against => { :subjects => :name }
+  pg_search_scope :search_by_subject, :associated_against => { :subject_tags => :name }
+  pg_search_scope :search_by_category, :associated_against => { :category_tags => :name }
 
   #Validations
   validates :title, presence: true
@@ -17,7 +17,7 @@ class Book < ActiveRecord::Base
 
   #Attributes
   attr_accessible :author, :book_type, :call_number, :illustrator, :more_information, :series, :subtitle, :title,
-                  :subject_ids, :category_ids, :copies_attributes, :subjects_names, :categories_names
+                  :copies_attributes, :subjects_names, :categories_names
   attr_accessor :tags, :subjects_names, :categories_names
   accepts_nested_attributes_for :copies
 
@@ -34,6 +34,22 @@ class Book < ActiveRecord::Base
   end
 
   #Instance Methods
+  def subject_ids
+    @subject_ids
+  end
+
+  def subject_ids=(ids)
+    @subject_ids = ids
+  end
+
+  def category_ids
+    @category_ids
+  end
+
+  def category_ids=(ids)
+    @category_ids = ids
+  end
+
   def subjects
     subject_tags.where(tag_type: Tag.subject_type)
   end
