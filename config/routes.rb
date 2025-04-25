@@ -1,17 +1,17 @@
-Librarycat::Application.routes.draw do
-
+Rails.application.routes.draw do
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  
+  # Replace with your actual routes, but using Rails 5.2 syntax
   devise_for :users
-
-  resources :copies
-  resources :books do
-    resources :copies
-  end
-  resources :tags
-  root :to => 'pages#home'
-
-  post '/search' => 'pages#search', as: :search
-  get '/search' => 'pages#search'
-  post '/letter_search' => 'pages#letter_search', as: :letter_search
-  get '/letter_search' => 'pages#letter_search'
-
+  
+  # Example resource routes
+  # resources :products
+  # resources :categories
+  
+  # Example of custom routes
+  # get 'about', to: 'pages#about'
+  # post 'contact', to: 'pages#contact'
+  
+  # Root path
+  root to: 'home#index'
 end
