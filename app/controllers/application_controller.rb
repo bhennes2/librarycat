@@ -1,12 +1,14 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery
-
-  before_filter :only_allow_devise_login
-
-  def only_allow_devise_login
-    if params[:controller].include?('devise')
-      redirect_to root_url, alert: 'You cannot access that page.' unless controller_name === 'sessions'
-    end
+  protect_from_forgery with: :exception
+  
+  # If using Devise
+  before_action :configure_permitted_parameters, if: :devise_controller?
+  
+  protected
+  
+  # Strong parameters for Devise
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :email])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :email])
   end
-
 end

@@ -1,22 +1,23 @@
-@import "bootstrap";
-@import "jquery.ui.autocomplete";
-@import "books";
-@import "pages";
-@import "layouts/header";
-@import "layouts/footer";
-@import "dataTables/jquery.dataTables.bootstrap";
-@import "chosen";
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require chosen
+ *= require jquery-ui
+ *= require_self
+ */
 
-@media print {
-  .nav { display: none !important; }
-  .navbar-inner { border: 0px !important; }
-  .print-logo { 
-    display: inline !important;
-    padding: 10px 0;
-  }
-  .logo { display: none; }
-  .table-striped th:nth-last-child(-n+3), .table-striped td:nth-last-child(-n+3) {
-    display: none;
-  }
-  footer { display: none; }
-}
+// Bootstrap
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+// Add your custom styles below
